@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Button mTest;
     private Button mTrue;
     private Button mFalse;
    // private TextView mQuestionTextView;
