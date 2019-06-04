@@ -10,19 +10,26 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"></activity>
+        <activity
             android:name=".ui.login.LoginActivity"
-            android:label="@string/title_activity_login"><intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+            android:label="@string/title_activity_login">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".LogIn"
             android:label="@string/title_activity_log_in"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".HomeActivity"
-            android:label="@string/title_activity_home" ><intent-filter>
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter></activity>
+            android:label="@string/title_activity_home">
+            <intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>
