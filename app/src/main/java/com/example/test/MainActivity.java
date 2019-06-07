@@ -1,78 +1,56 @@
 package com.example.test;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-import android.view.Menu;
+import android.support.annotation.NonNull;
 import android.view.MenuItem;
-import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
 
-    private Button mTrue;
-    private Button mFalse;
-   // private TextView mQuestionTextView;
-    //private TrueFalse[]mAnswerKey;
-    //private int mCurrentIndex;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+        navView.setOnNavigationItemSelectedListener(this);
 
-        mTrue=(Button)findViewById(R.id.button1);
-        mTrue.setOnClickListener (new View.OnClickListener(){public void onClick(View v){Toast.makeText(MainActivity.this,R.string.corr_toast, Toast.LENGTH_LONG).show();}});
+        loadFragment(new HomeFragment());
+    }
 
-
-        mFalse=(Button)findViewById(R.id.button2);
-        mFalse.setOnClickListener (new View.OnClickListener(){public void onClick(View v){Toast.makeText(MainActivity.this,R.string.incorr_toast, Toast.LENGTH_LONG).show();}});
-
-
-      /*  TrueFalse[]mAnswerKey;
-        mAnswerKey=new TrueFalse[]{
-                new TrueFalse(R.String.frage_text, false),
-                new TrueFalse(R.String.frage_alibi, true)
-        };
-        int mCurrentIndex = 0;*/
+    private boolean loadFragment(Fragment fragment)
+    {
+        if(fragment!=null)
+        {
+            getSupportFragmentManager()
+                    .beginTransaction()
+                    .replace(R.id.fragment_container,fragment)
+                    .commit();
+                    return true;
+        } return false;
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+       Fragment fragment=null;
 
+       switch(menuItem.getItemId()){
+           case R.id.navigation_home:
+               fragment= new HomeFragment();
+               break;
 
-    }
+           case R.id.navigation_dashboard:
+               fragment= new DashboardFragment();
+               break;
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
+           case R.id.navigation_notifications:
+               fragment= new NotificationFragment();
+               break;
+       }
+return loadFragment(fragment);
     }
 }
